@@ -1,0 +1,138 @@
+<html>
+    <head>
+        <script src="https://unpkg.com/vue"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <!--google fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    </head>
+    <body>
+    
+        <div id="app">
+        <bienvenido></bienvenido>
+        <p> and enjoy with us tacos! </p>
+        <p class="big-text"> Pasale</p>
+            
+        <h2>Opening times:</h2>
+        <div class="open">
+            <ul>
+                <li v-for="day in days">{{day}}</li>
+            </ul>
+        </div>
+        
+            
+        <p> Which is your favorite taco?</p>
+        <p>Choose between: </p>
+        <label>pastor</label>
+        <input type="radio" id="pastor" value="pastor" v-model="selected" >
+        <label>suadero</label>
+        <input type="radio" id="suadero" value="suadero" v-model="selected">
+        <label>longaniza</label>
+        <input type="radio" id="longaniza" value="longaniza" v-model="selected">
+        <label>I don't like tacos </label>
+        <input type="radio" id="dontlike" value="dontlike" v-model="selected">
+        <div class="selection">
+        <template v-if="selected === 'pastor'">
+            <div>
+                <p>tacos al pastor are delicious</p>
+              
+            </div>
+        </template>
+        <template v-if="selected === 'suadero'">
+             <div>
+               <p>Suadero tacos are also a good choice</p>
+          
+            </div>
+        </template>
+        <template v-if="selected === 'longaniza'">
+            <div>
+                <p>Fantastic selection, you like good tacos!</p>
+              
+            </div>
+        </template>
+        <template v-if="selected === 'dontlike'">
+            <div>
+               <p>Shame on you! You should try tacos today!</p>
+            </div>
+        </template>
+        </div>
+
+        <order></order>
+        
+        
+
+         </div>
+    <!-- vue components -->
+       <template id="horario-template">
+           <div>
+            <h3> We are open! </h3>
+            
+           </div>
+            </template>
+        <template id="bienvenido">
+            <div class="bienvenido">
+                <h1> Bienvenido a  </h1>
+                <h1>ricos tacos</h1>
+                <h1> ONLINE</h1>
+                
+            
+            </div>
+        </template>
+        <template id="taco">
+            <div>
+            <h1>taco al {{name}}</h1>
+            <p>is a delicious taco. Everybody loves taco al {{name}}</p>
+            </div>
+        </template>
+        <template id="order">
+            <div>
+                <h2> Order your tacos here</h2>
+                <label>How many tacos guero?</label>
+                <input type="text" v-model="order">
+                <h2>Can I repeat your order</h2>
+                <label> Yes</label>
+                <input type="radio" value="yes" id="yes" v-model="confirmOrder">
+                <label>No </label>
+                <input type="radio" value="no" id="yes" v-model="confirmOrder">
+
+                <div class="order" v-if="confirmOrder === 'yes'">
+                    <p>Guero you ordered: <span class="color">{{order}}</span></p>
+                </div>
+                <div v-if="confirmOrder === 'no'">
+                    <p class="color">Ok Guero, I got your order!</p>
+                </div>
+            </div>
+        </template>
+        
+    </body>
+    <script>
+    
+          Vue.component('bienvenido',{
+            template:'#bienvenido'
+                        
+        });
+        Vue.component('taco',{
+            props:['name'],
+            template:'#taco'
+        })
+        Vue.component('order',{
+            template:'#order',
+            data: function(){
+                return {
+                    order:'',
+                    confirmOrder:''
+                }
+            }
+        })
+        
+        var app = new Vue({
+            el:'#app',
+            data: {
+                taco:'',
+                selected: 'pastor',
+                days: ['Monday 9am- 2am','Tuesdays 9am-12pm','Wednesday 9am - 11pm', 'Thursdays 9am-10pm']
+            }
+        })
+        
+</script>
+
+</html>
